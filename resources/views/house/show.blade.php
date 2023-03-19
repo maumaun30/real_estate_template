@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-    <div class="row gap-2 mb-3">
+    <div class="row mb-3">
         <div class="col-sm-9 d-flex flex-wrap gap-1 mb-1">
             <a href="{{ route('house.index') }}" class="btn btn-outline-secondary"><i class="fa fa-arrow-left"></i> Back</a>
             <a href="{{ route('house.edit', $house->id) }}" class="btn btn-outline-success">Edit</a>
