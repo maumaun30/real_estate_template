@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File; 
+use Illuminate\Support\Facades\File;
 use App\Models\House;
 use App\Models\HouseFeature;
 use App\Models\HouseImage;
@@ -103,19 +103,21 @@ class HouseController extends Controller
 
     // STORE FEATURES
 
-    public function storeFeature(Request $request) {
+    public function storeFeature(Request $request)
+    {
 
         $this->validate($request, [
             'name' => 'required|max:255',
             'house_id' => 'required'
         ]);
 
-        HouseFeature::create($request->all());
+        $feature = HouseFeature::create($request->all());
 
-        return redirect()->route('house.show', $request->house_id);
+        return response()->json($feature);
     }
 
-    public function destroyFeature($id) {
+    public function destroyFeature($id)
+    {
         HouseFeature::destroy($id);
 
         return redirect()->back();
@@ -123,7 +125,8 @@ class HouseController extends Controller
 
     // STORE IMAGES
 
-    public function storeImage(Request $request) {
+    public function storeImage(Request $request)
+    {
 
         $this->validate($request, [
             'images' => 'required',
@@ -132,12 +135,11 @@ class HouseController extends Controller
         ]);
 
         $images = [];
-        if ($request->images){
-            foreach($request->images as $key => $image)
-            {
-                $imageName = time().rand(1,99).'.'.$image->extension();  
+        if ($request->images) {
+            foreach ($request->images as $key => $image) {
+                $imageName = time() . rand(1, 99) . '.' . $image->extension();
                 $image->move(public_path('media'), $imageName);
-  
+
                 $images[]['name'] = $imageName;
             }
         }
@@ -152,11 +154,12 @@ class HouseController extends Controller
         return redirect()->route('house.show', $request->house_id);
     }
 
-    public function destroyImage($id) {
+    public function destroyImage($id)
+    {
         $image = HouseImage::find($id);
-        $file = public_path('media/'. $image->name);
+        $file = public_path('media/' . $image->name);
 
-        if(File::exists($file)) {
+        if (File::exists($file)) {
             File::delete($file);
         }
 

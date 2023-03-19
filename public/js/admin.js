@@ -7,23 +7,42 @@ $(document).ready(function () {
         }
     });
 
-    function addFeature() {
+    // AJAX Feature Added
+    $("#featureForm").submit(function (e) {
+        e.preventDefault();
+
+        let url = $(this).data("action");
+        let deleteUrl = $(this).data("delete-url");
+
         $.ajax({
             type: "POST",
-            url: $(this).attr("action"),
-            data: $(this).attr("csrf"),
+            url: url,
+            data: new FormData(this),
+            dataType: "JSON",
+            contentType: false,
+            cache: false,
+            processData: false,
             success: function (data) {
-                $(".features-container").append(
+                $(".house-features-container").append(
                     '<li class="features-item">' +
                         "<span>" +
-                        "feature.name" +
+                        data.name +
                         "</span>" +
-                        '<a href="" class="feature-delete-x" onclick="return confirm()">' +
-                        '<i class="fa fa-x text-danger"></i>' +
+                        '<a href="' +
+                        deleteUrl.replace(":id", data.id) +
+                        '" class="feature-delete-x" onclick="return confirm(' +
+                        "'Are you sure?'" +
+                        ')">' +
+                        '<i class="fa fa-xmark text-danger"></i>' +
                         "</a>" +
-                        "</li>"
+                        "</li >"
                 );
+
+                $("#featureForm").trigger("reset");
+            },
+            error: function (data) {
+                console.log(data);
             },
         });
-    }
+    });
 });

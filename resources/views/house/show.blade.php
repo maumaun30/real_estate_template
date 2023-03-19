@@ -176,7 +176,7 @@
                         @endforelse
                     </ul>
 
-                    <form action="{{ route('house.features.store') }}" method="post">
+                    <form id="featureForm" method="post" data-action="{{ route('house.features.store') }}" data-delete-url="{{ route('house.features.destroy', ':id') }}">
                         @csrf
                         <div class="row">
                             <div class="col">
