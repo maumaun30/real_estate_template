@@ -60,22 +60,22 @@
             <div class="col">
                 <ul class="house-filter-list">
                     <li>
-                        <a>
+                        <a href="#">
                             Looking for <i class="fa fa-chevron-down"></i>
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a href="#">
                             Location <i class="fa fa-chevron-down"></i>
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a href="#">
                             Property Type <i class="fa fa-chevron-down"></i>
                         </a>
                     </li>
                     <li>
-                        <a>
+                        <a href="#">
                             Price <i class="fa fa-chevron-down"></i>
                         </a>
                     </li>
@@ -86,7 +86,7 @@
             <div class="col">
                 <div class="house-card-container">
                     <!-- loop -->
-                    
+
                     @forelse($houses as $house)
                     <a href="{{ route('single.house', $house->id) }}" class="house-card">
                         @if (count($house->house_images) > 0)
